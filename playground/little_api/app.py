@@ -1,7 +1,11 @@
-from typing import Optional
+from typing import Optional, Any
 from schemas import Cat, CatSearchResults, CatCreate
+from pathlib import Path
+from fastapi import FastAPI, APIRouter, Query, HTTPException, Request
+from fastapi.templating import Jinja2Templates
 
-from fastapi import FastAPI, APIRouter, Query, HTTPException
+BASE_PATH = Path(__file__).resolve().parent
+TEMPLATES = Jinja2Templates(directory=str(BASE_PATH/"templates"))
 
 app = FastAPI(title='Cats API', openapi_url='/openapi.json')
 api_router = APIRouter()
@@ -19,8 +23,13 @@ CATS = [
 
 
 @api_router.get(path='/', status_code=200, name='home')
-def root() -> dict:
-    return {"msg": "Welcome to Cats API"}
+def root(request: Request) -> dict:
+    """
+    ROOT get
+    """
+    return TEMPLATES.TemplateResponse(
+        "index.html",{"request":request,"cats": CATS}
+    )
 
 
 @api_router.get(path='/cat/{id}', status_code=200, name='Cat', response_model=Cat)
