@@ -69,7 +69,9 @@ def get_text_as_json(endpoint: str):
 
 # print(get_text_as_json("get_text"))
 
-
+'''
+METHODS
+'''
 # Check type of called HTTP method
 def check_type(method: str, endpoint: str):
     call_method = getattr(requests, method)
@@ -108,7 +110,7 @@ def get_redirects(endpoint: str, redirects=True):
 
 
 # print(get_redirects("get_301",redirects=False)) # You will be redirected 301
-# print(get_redirects("get_301",redirects=True)) #this actualy returns 403 without headers
+# print(get_redirects("get_301",redirects=True)) #this actually returns 403 without headers
 # print(get_redirects("long_redirect",redirects=True))
 
 """
