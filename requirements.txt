@@ -1,3 +1,5 @@
-allure-pytest
-requests
-pytest
+requests~=2.27.1
+SQLAlchemy~=1.4.36
+fastapi~=0.75.2
+pydantic~=1.9.0
+uvicorn~=0.17.6

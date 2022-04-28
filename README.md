@@ -4,8 +4,9 @@ Learning materials and exercises for the course https://software-testing.ru/edu/
 
 ## Structure
 
-Short code snippets for homework tasks reside in `/homework` directory.
-Lecture notes in `/learning_materials`.
+Short code snippets for homework tasks reside in `/homework` directory.  
+Lecture notes in `/learning_materials`.  
+Small Cat API to test in `/playground` based on this amazing [tutorial](https://christophergs.com/tutorials/ultimate-fastapi-tutorial-pt-1-hello-world/).
 
 ## Install
 
