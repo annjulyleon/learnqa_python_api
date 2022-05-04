@@ -1,5 +1,6 @@
 import requests
 import pytest
+import pytest_check as check
 
 ''' 
 python -m pytest -v .\test_three_user_agent.py
@@ -39,9 +40,17 @@ def test_user_agent_method(user_agent):
     browser = response_json['browser']
     device = response_json['device']
 
+    '''
+    This will fail on first assert fail
     assert platform == expected['platform'], \
         f'For user-agent {user_agent[0]}: platform "{platform}" does not match expected result ({expected["platform"]})'
     assert browser == expected['browser'], \
         f'For user-agent {user_agent[0]}: browser "{browser}" does not match expected result ({expected["browser"]})'
     assert device == expected['device'], \
         f'For user-agent {user_agent[0]}: device "{device}" does not match expected result ({expected["device"]})'
+    '''
+
+    # this will not fail on first assert
+    check.equal(platform, expected['platform']), f'For user-agent {user_agent[0]}: platform "{platform}" does not match expected result ({expected["platform"]})'
+    check.equal(browser, expected['browser']), f'For user-agent {user_agent[0]}: browser "{browser}" does not match expected result ({expected["browser"]})'
+    check.equal(device,expected['device']), f'For user-agent {user_agent[0]}: device "{device}" does not match expected result ({expected["device"]})'
