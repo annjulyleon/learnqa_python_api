@@ -1,8 +1,3 @@
 requests~=2.27.1
-SQLAlchemy~=1.4.36
-pydantic~=1.9.0
-uvicorn~=0.17.6
 pytest
 allure-pytest
-fastapi
-pytest_check~=1.0.5
