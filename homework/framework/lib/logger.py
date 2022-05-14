@@ -21,9 +21,9 @@ class Logger:
         data_to_add += f'Time: {str(datetime.now())}\n'
         data_to_add += f'Request method: {method}\n'
         data_to_add += f'Request URL: {url}\n'
-        data_to_add += f'Request method: {data}\n'
-        data_to_add += f'Request method: {headers}\n'
-        data_to_add += f'Request method: {cookies}\n'
+        data_to_add += f'Request data: {data}\n'
+        data_to_add += f'Request headers: {headers}\n'
+        data_to_add += f'Request cookies: {cookies}\n'
         data_to_add += f"\n"
 
         cls._write_log_to_file(data_to_add)

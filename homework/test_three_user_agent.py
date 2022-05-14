@@ -51,6 +51,9 @@ def test_user_agent_method(user_agent):
     '''
 
     # this will not fail on first assert
-    check.equal(platform, expected['platform']), f'For user-agent {user_agent[0]}: platform "{platform}" does not match expected result ({expected["platform"]})'
-    check.equal(browser, expected['browser']), f'For user-agent {user_agent[0]}: browser "{browser}" does not match expected result ({expected["browser"]})'
-    check.equal(device,expected['device']), f'For user-agent {user_agent[0]}: device "{device}" does not match expected result ({expected["device"]})'
+    check.equal(platform, expected['platform']), \
+    f'For user-agent {user_agent[0]}: platform "{platform}" does not match expected result ({expected["platform"]})'
+    check.equal(browser, expected['browser']), \
+    f'For user-agent {user_agent[0]}: browser "{browser}" does not match expected result ({expected["browser"]})'
+    check.equal(device,expected['device']), \
+    f'For user-agent {user_agent[0]}: device "{device}" does not match expected result ({expected["device"]})'
