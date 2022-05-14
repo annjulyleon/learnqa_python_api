@@ -10,25 +10,6 @@ from lib.my_requests import MyRequests
 @allure.epic("User edit cases")
 class TestUserEdit(BaseCase):
 
-    def create_user_ensure_created(self) -> dict:
-        register_data = self.prepare_registration_data()
-        response_registration = MyRequests.post("/user", data=register_data)
-
-        Assertions.assert_code_status(response_registration, 200)
-        Assertions.assert_json_has_key(response_registration, "id")
-        register_data["user_id"] = self.get_json_value(response_registration, "id")
-
-        return register_data
-
-    def get_auth_data(self, register_data: dict) -> dict:
-        response_auth = MyRequests.post("/user/login",
-                                        data={"email": register_data["email"],
-                                              "password": register_data["password"]})
-        register_data["auth_sid"] = self.get_cookie(response_auth, "auth_sid")
-        register_data["token"] = self.get_header(response_auth, "x-csrf-token")
-
-        return register_data
-
     @allure.description("This test ensure user can edit its own details")
     def test_edit_just_created_user(self):
         register_data = self.prepare_registration_data()
