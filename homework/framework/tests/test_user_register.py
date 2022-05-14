@@ -6,7 +6,6 @@ from lib.base_case import BaseCase
 from lib.assertions import Assertions
 
 
-@allure.title("Registration Tests")
 @allure.epic("Registration cases")
 class TestUserRegister(BaseCase):
     exclude_field = [
@@ -43,7 +42,7 @@ class TestUserRegister(BaseCase):
     #  python -m pytest -s .\tests\test_user_register.py -k test_create_user_email_without_at
     @pytest.mark.review
     @allure.title("Cannot create without @ at email")
-    @allure.description("This test ensure user can't be create with email without @")
+    @allure.description("This test ensure user can't be created with email without @")
     def test_create_user_email_without_at(self):
         email = "vinkotovexample.com"
         data = self.prepare_registration_data(email)
@@ -71,7 +70,7 @@ class TestUserRegister(BaseCase):
     # python -m pytest -s .\tests\test_user_register.py -k test_create_user_with_short_field
     @pytest.mark.review
     @allure.title("User create with too short {field}")
-    @allure.description("This test ensure user can't be create with too short username or firstname")
+    @allure.description("This test ensure user can't be created with too short username or firstname")
     @pytest.mark.parametrize('field', ["username", "firstName"])
     def test_create_user_with_short_field(self, field):
         data = self.prepare_registration_data()
@@ -86,7 +85,7 @@ class TestUserRegister(BaseCase):
     # python -m pytest -s .\tests\test_user_register.py -k test_create_user_with_long_field
     @pytest.mark.review
     @allure.title("User create with too long {field}")
-    @allure.description("This test ensure user can't be create with too long username or firstname")
+    @allure.description("This test ensure user can't be created with too long username or firstname")
     @pytest.mark.parametrize('field', ["username", "firstName"])
     def test_create_user_with_long_field(self, field):
         data = self.prepare_registration_data()

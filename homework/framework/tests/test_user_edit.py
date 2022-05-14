@@ -6,7 +6,7 @@ from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_requests import MyRequests
 
-@allure.title("Edit tests")
+
 @allure.epic("User edit cases")
 class TestUserEdit(BaseCase):
     @pytest.mark.smoke

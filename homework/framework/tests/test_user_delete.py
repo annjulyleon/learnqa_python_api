@@ -7,7 +7,6 @@ from lib.my_requests import MyRequests
 
 
 @allure.epic("Delete cases")
-@allure.title("Deletion tests")
 class TestUserDelete(BaseCase):
     # python -m pytest -s .\tests\test_user_delete.py -k test_user2_cannot_be_deleted
     @allure.title("User with id 2 cannot be deleted")

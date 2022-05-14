@@ -6,7 +6,6 @@ from lib.my_requests import MyRequests
 
 
 @allure.epic("Authorization cases")
-@allure.title("Authorization tests")
 class TestUserAuth(BaseCase):
     exclude_params = [
         "no_cookies",
