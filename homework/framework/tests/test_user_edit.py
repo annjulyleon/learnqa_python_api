@@ -6,10 +6,12 @@ from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_requests import MyRequests
 
-
+@allure.title("Edit tests")
 @allure.epic("User edit cases")
 class TestUserEdit(BaseCase):
-
+    @pytest.mark.smoke
+    @allure.story("crud")
+    @allure.title("Edit created user")
     @allure.description("This test ensure user can edit its own details")
     def test_edit_just_created_user(self):
         register_data = self.prepare_registration_data()
@@ -50,6 +52,7 @@ class TestUserEdit(BaseCase):
                                              "Wrong firstName after edit")
 
     # python -m pytest -s .\tests\test_user_edit.py -k test_edit_created_user_unauth
+    @allure.title("Unauth user cannot edit {field}")
     @allure.description("This test ensure unauthorized user can't edit it's own details")
     @pytest.mark.parametrize('field', ["username", "firstName", "lastName", "email", "password"])
     def test_edit_created_user_unauth(self, field):
@@ -62,6 +65,7 @@ class TestUserEdit(BaseCase):
             f'Unexpected response text {response_change.text}'
 
     # python -m pytest -s .\tests\test_user_edit.py -k test_edit_other_user_auth
+    @allure.title("Unauth user cannot edit {field} of other user")
     @allure.description("This test ensure authorized user can edit other user details, but details are not changed")
     @pytest.mark.parametrize('field', ["username", "firstName", "lastName", "email", "password"])
     def test_edit_other_user_auth(self, field):
@@ -98,6 +102,7 @@ class TestUserEdit(BaseCase):
                 f"Value should not be changed by other user")
 
     # python -m pytest -s .\tests\test_user_edit.py -k test_edit_auth_user_email_format
+    @allure.title("User can't remove @ from email")
     @allure.description("This test ensure authorized user can't edit it's own email to incorrect format")
     def test_edit_auth_user_email_format(self):
         user = self.create_user_ensure_created()
@@ -115,6 +120,7 @@ class TestUserEdit(BaseCase):
             f' or got other error {response_change.text}'
 
     # python -m pytest -s .\tests\test_user_edit.py -k test_edit_auth_user_firstname_short
+    @allure.title("User can't put too short firstName")
     @allure.description("This test ensure authorized user can't edit it's own firstName to incorrect format")
     def test_edit_auth_user_firstname_short(self):
         user = self.create_user_ensure_created()

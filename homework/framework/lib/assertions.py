@@ -1,5 +1,6 @@
 from requests import Response
 import json
+import allure
 
 
 class Assertions:

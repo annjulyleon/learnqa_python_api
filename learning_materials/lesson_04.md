@@ -11,9 +11,14 @@ Command to run allure and generate reports in directory:
 python -m pytest --alluredir=test_results/ .\tests\test_user_auth.py
 ```
 
+With @alure.issue link template:
+```
+python -m pytest --alluredir=test_results/ --allure-link-pattern=issue:'https://www.mytesttracker.com/issue/{}' .\tests
+```
+
 View report:
 ```
-allure server test_results/
+allure serve test_results/
 ```
 
 Note: logger and relative directory from lesson do not work with pycharm test launch.

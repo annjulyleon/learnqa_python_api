@@ -1,10 +1,10 @@
 import allure
-
+import pytest
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 from lib.my_requests import MyRequests
 
-
+@allure.title("Get tests")
 @allure.epic("Get user cases")
 class TestUserGet(BaseCase):
     default_data = {
@@ -12,6 +12,8 @@ class TestUserGet(BaseCase):
         "password": "1234"
     }
 
+    @allure.title("Unauth user can't get other user details")
+    @allure.issue('2572', '[API] Проверить недоступность данных неавторизованным пользователям')
     @allure.description("This test ensure unauthorized user can see only her username")
     def test_get_user_details_not_auth(self):
         response = MyRequests.get('/user/2')
@@ -21,6 +23,9 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_not_key(response, 'firstName')
         Assertions.assert_json_has_not_key(response, 'lastName')
 
+    @pytest.mark.smoke
+    @allure.story("crud")
+    @allure.title("User can get details")
     @allure.description("This test ensure authorized user can see all her user info fields")
     def test_get_user_details_auth_as_same_user(self):
 
@@ -36,6 +41,7 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_keys(response_with_details, ['username', 'email', 'firstName', 'lastName'])
 
     # python -m pytest -s .\tests\test_user_get.py -k test_get_user_details_auth_as_other_user
+    @allure.title("User can get only others username")
     @allure.description("This test ensure authorized admin user can only see other user username field. "
                         "Using default data")
     def test_get_user_details_auth_as_other_user(self):

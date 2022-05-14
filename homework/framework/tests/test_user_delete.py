@@ -1,5 +1,5 @@
 import time
-
+import pytest
 import allure
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
@@ -7,8 +7,10 @@ from lib.my_requests import MyRequests
 
 
 @allure.epic("Delete cases")
+@allure.title("Deletion tests")
 class TestUserDelete(BaseCase):
     # python -m pytest -s .\tests\test_user_delete.py -k test_user2_cannot_be_deleted
+    @allure.title("User with id 2 cannot be deleted")
     @allure.description("This test ensure user 2 cannot delete itself")
     def test_user2_cannot_be_deleted(self):
         data = {
@@ -24,6 +26,9 @@ class TestUserDelete(BaseCase):
         assert response.text == 'Please, do not delete test users with ID 1, 2, 3, 4 or 5.', f"Incorrect message"
 
     # python -m pytest -s .\tests\test_user_delete.py -k test_delete_user_delete_itself
+    @pytest.mark.smoke
+    @allure.story("crud")
+    @allure.title("User can delete itself")
     @allure.description("This test ensure authorized user can delete itself")
     def test_delete_user_delete_itself(self):
         user = self.create_user_ensure_created()
@@ -39,6 +44,7 @@ class TestUserDelete(BaseCase):
         assert response_get.text == 'User not found', f'Incorrect message. Message {response_get.text}'
 
     # python -m pytest -s .\tests\test_user_delete.py -k test_delete_other_user
+    @allure.title("User cannot delete another user")
     @allure.description("This test ensure user is not deleted after delete command of authorized user")
     def test_delete_other_user(self):
         user_auth = self.create_user_ensure_created()

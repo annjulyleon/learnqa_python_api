@@ -6,6 +6,7 @@ from lib.base_case import BaseCase
 from lib.assertions import Assertions
 
 
+@allure.title("Registration Tests")
 @allure.epic("Registration cases")
 class TestUserRegister(BaseCase):
     exclude_field = [
@@ -16,6 +17,7 @@ class TestUserRegister(BaseCase):
         "password"
     ]
 
+    @allure.title("Cannot register with existing email")
     @allure.description("This test ensure user with existing email already exist")
     def test_create_user_with_existing_email(self):
         email = "vinkotov@example.com"
@@ -27,7 +29,10 @@ class TestUserRegister(BaseCase):
         assert response.content.decode("utf-8") == f"Users with email '{email}' already exists", \
             f'Unexpected response content {response.content}'
 
+    @pytest.mark.smoke
+    @allure.title("User create")
     @allure.description("This test creates user successfully")
+    @allure.story("crud")
     def test_create_user_successfully(self):
         data = self.prepare_registration_data()
         response = MyRequests.post("/user", data=data)
@@ -36,6 +41,8 @@ class TestUserRegister(BaseCase):
         Assertions.assert_json_has_key(response, "id")
 
     #  python -m pytest -s .\tests\test_user_register.py -k test_create_user_email_without_at
+    @pytest.mark.review
+    @allure.title("Cannot create without @ at email")
     @allure.description("This test ensure user can't be create with email without @")
     def test_create_user_email_without_at(self):
         email = "vinkotovexample.com"
@@ -48,6 +55,8 @@ class TestUserRegister(BaseCase):
             f'Unexpected response content {response.content}'
 
     # python -m pytest -s .\tests\test_user_register.py -k test_create_user_fields
+    @pytest.mark.review
+    @allure.title("User create without {exclude_field}")
     @allure.description("This test ensure user can't be created without one of the required field")
     @pytest.mark.parametrize('exclude_field', exclude_field)
     def test_create_user_fields(self, exclude_field):
@@ -60,6 +69,8 @@ class TestUserRegister(BaseCase):
             f'Unexpected response text {response.text}'
 
     # python -m pytest -s .\tests\test_user_register.py -k test_create_user_with_short_field
+    @pytest.mark.review
+    @allure.title("User create with too short {field}")
     @allure.description("This test ensure user can't be create with too short username or firstname")
     @pytest.mark.parametrize('field', ["username", "firstName"])
     def test_create_user_with_short_field(self, field):
@@ -73,6 +84,8 @@ class TestUserRegister(BaseCase):
             f'Unexpected response text {response.text}'
 
     # python -m pytest -s .\tests\test_user_register.py -k test_create_user_with_long_field
+    @pytest.mark.review
+    @allure.title("User create with too long {field}")
     @allure.description("This test ensure user can't be create with too long username or firstname")
     @pytest.mark.parametrize('field', ["username", "firstName"])
     def test_create_user_with_long_field(self, field):
